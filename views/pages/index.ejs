@@ -6,6 +6,15 @@
         <title>Hello world!</title>
     </head>
     <body>
-        <h1 class="h1">Hello</h1>
+        <form action="search" method="post">
+          <input type="text" placeholder="Enter title or author" name="search" required>
+            <label>Author
+                <input type="radio" name="search" value="author">
+            </label>
+            <label>Title
+                <input type="radio" name="search" value="title">
+            </label>
+            <button>Submit</button>
+        </form>
     </body>
 </html>
