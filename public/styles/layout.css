@@ -13,3 +13,7 @@ label {
 form {
     flex-direction: column;
 }
+/*show.ejs*/
+ul {
+    background-color: rgb(247, 247, 162);
+}
