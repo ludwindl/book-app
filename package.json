@@ -1,10 +1,11 @@
 {
   "name": "book-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "**Author**: Ludwin De Leon **Version**: 1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,6 @@
     "ejs": "^2.6.2",
     "express": "^4.17.1",
     "superagent": "^5.1.0"
-  }
+  },
+  "devDependencies": {}
 }
