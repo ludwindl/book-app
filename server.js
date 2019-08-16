@@ -15,11 +15,12 @@ app.get('/', (request, response) => {
 })
 
 function Book(info) {
-  this.title = info.title
+  this.title = info.title,
+  this.author = info.author
 }
 
 app.post('/search', (request, response) => {
-  let url = 'https://www.googleapis.com/books/v1/volumes?q=';
+  let url = 'http://www.googleapis.com/books/v1/volumes?q=';
   if (request.body.search[1] === 'author') {url += `inauthor: ${request.body.search[0]}`}
   console.log('search: ',request.body.search[0]);
   if (request.body.search[1] === 'title') {url += `intitle: ${request.body.search[0]}`}
