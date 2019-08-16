@@ -1,7 +1,13 @@
 body {
-    background-color: red;
+    
+    width: 480px;
+    box-sizing: border-box;
+    text-align: center;
+    margin: auto;
+    
 }
 
-.h1 {
-color:blue;
+
+label {
+    background-color: blue;
 }

@@ -1,0 +1,15 @@
+.first {
+    background-color: grey;
+    height: 50px;
+}
+input {
+    margin: 4em;
+   
+}
+label {
+    margin: 4em;
+    
+}
+form {
+    flex-direction: column;
+}
