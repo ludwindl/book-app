@@ -19,16 +19,36 @@ function Book(info) {
   this.author = info.author
 }
 
-app.post('/search', (request, response) => {
-  let url = 'http://www.googleapis.com/books/v1/volumes?q=';
-  if (request.body.search[1] === 'author') {url += `inauthor: ${request.body.search[0]}`}
-  console.log('search: ',request.body.search[0]);
-  if (request.body.search[1] === 'title') {url += `intitle: ${request.body.search[0]}`}
+// app.post('/search', (request, response) => {
+//   let url = 'http://www.googleapis.com/books/v1/volumes?q=';
+//   if (request.body.search[1] === 'author') {url += `inauthor: ${request.body.search[0]}`}
+//   console.log('search: ',request.body.search[0]);
+//   if (request.body.search[1] === 'title') {url += `intitle: ${request.body.search[0]}`}
+//   superagent.get(url)
+//     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
+//     .then(results => response.render('pages/searches/show', {searchResults: results}));
+// })
+
+
+app.post('/search', createSearch);
+
+function createSearch (request, response){
+  let url = 'https://www.googleapis.com/books/v1/volumes?q=';
+  console.log('request body', request.body);
+  console.log('actual search', request.body.search);
+  if (request.body.search[1] === 'title') {url += `intitle:${request.body.search[0]}`}
+  if (request.body.search[1] === 'author') {url += `inauthor:${request.body.search[0]}`}
   superagent.get(url)
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
-    .then(results => response.render('pages/searches/show', {searchResults: results}));
-})
+    .then(results => response.render('pages/searches/show', {searchResults : results}))
+    .catch(error => handleError(error, response));
+}
+
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}` ));
 
 
+function handleError (error, response){
+  console.error(error);
+  response.status(500).send('ERROR');
+}
