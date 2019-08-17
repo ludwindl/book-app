@@ -3,7 +3,7 @@
 const express =require('express');
 const app = express();
 const superagent = require('superagent');
-
+const pg = require('pg');
 const PORT = process.env.PORT || 3000;
 
 app.use(express.urlencoded({extended:true}))
@@ -14,6 +14,10 @@ app.get('/', (request, response) => {
   response.render('pages/index');
 })
 
+//const client = new pg.Client(process.env.DATA_BASE_URL);
+//client.connect();
+//client.on('error', err => console.error(err));
+
 function Book(info) {
   let httpRegex = /^(http:\/\/)/g;
   let placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
@@ -21,8 +25,8 @@ function Book(info) {
   this.author = info.author ? info.author[0] : 'No author available';
   this.isbn = info.industryIdentifiers ? `ISBN _13 ${info.industryIdentifiers[0].identifier}`: 'NO ISBN available';
   this.image_url = info.imageLinks ? info.imageLinks.smallThumbnail.replace(httpRegex, 'https://') : placeholderImage;
-  //this.id = info.industryIdentifiers ? `${info.industryIdentifiers[0].identifier}` : '';
-  //this.description = info.description ? info.description : 'No description available';
+  this.id = info.industryIdentifiers ? `${info.industryIdentifiers[0].identifier}` : '';
+  this.description = info.description ? info.description : 'No description available';
 }
 
 
