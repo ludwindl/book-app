@@ -8,7 +8,14 @@
             <link href="../../public/styles/layout.css" rel="stylesheet" type="text/css">
             <link href="../../public/styles/modules.css" rel="stylesheet" type="text/css">
            <title>Show Books</title>
+        
+           <link rel="stylesheet" href="../../public/styles/reset.css">
+        <link rel="stylesheet" href="../../public/styles/base.css">
+        <link rel="stylesheet" href="../../public/styles/modules.css">
+        <link rel="stylesheet" href="../../public/styles/layout.css">
        </head>
+       <nav class="nav">Best Books!</nav>
+       <div class="first">Search Results </div>
        <ul>
            <% searchResults.forEach(item => { %>
                <p>Title: <%= item.title %></p>

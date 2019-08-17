@@ -21,6 +21,7 @@ function Book(info) {
 }
 
 
+
 app.post('/search', createSearch);
 
 function createSearch (request, response){
@@ -29,6 +30,7 @@ function createSearch (request, response){
   console.log('actual search', request.body.search);
   if (request.body.search[1] === 'title') {url += `intitle:${request.body.search[0]}`}
   if (request.body.search[1] === 'author') {url += `inauthor:${request.body.search[0]}`}
+  
   superagent.get(url)
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
     .then(results => response.render('pages/searches/show', {searchResults : results}))
@@ -43,3 +45,4 @@ function handleError (error, response){
   console.error(error);
   response.status(500).send('ERROR');
 }
+
