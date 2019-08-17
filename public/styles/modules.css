@@ -1,9 +1,27 @@
 
 .nav {
-    background-color: orange;
+    background-color: rgb(24, 23, 22);
     height: 60px;
+    color:white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
 }
 input {
-    width: 65%;
+     width: 65%; 
 }
-
+.first {
+    background-color: rgb(99, 98, 98);
+    color: white;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.label {
+    background-color: #fff;
+    display: block;
+    margin: 10px 0;
+    position: relative;
+}
