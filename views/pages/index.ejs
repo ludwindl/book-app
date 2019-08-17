@@ -7,20 +7,24 @@
         <link href="../../public/styles/modules.css" rel="stylesheet" type="text/css">
         
 
-        <title>Hello world!</title>
+        <title>Search your favorite books!</title>
     </head>
     <body>
+        <div class="page">
         <nav class="nav">Best Books!</nav>
         <div class="first">Search by title or author</div>
         <form action="search" method="post">
           <input type="text" placeholder="Enter title or author" name="search" required>
-            <label>Author
+          <div class="label">  
+          <label>Author
                 <input type="radio" name="search" value="author">
             </label>
+            </div>
             <label>Title
                 <input type="radio" name="search" value="title">
             </label>
             <button>Search the book</button>
         </form>
+    </div>
     </body>
 </html>

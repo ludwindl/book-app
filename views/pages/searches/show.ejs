@@ -9,18 +9,28 @@
             <link href="../../public/styles/modules.css" rel="stylesheet" type="text/css">
            <title>Show Books</title>
         
-           <link rel="stylesheet" href="../../public/styles/reset.css">
-        <link rel="stylesheet" href="../../public/styles/base.css">
-        <link rel="stylesheet" href="../../public/styles/modules.css">
-        <link rel="stylesheet" href="../../public/styles/layout.css">
        </head>
+       <div class="page">
        <nav class="nav">Best Books!</nav>
        <div class="first">Search Results </div>
-       <ul>
-           <% searchResults.forEach(item => { %>
-               <p>Title: <%= item.title %></p>
-          <% }) %>
+       
+       <ul class="showlist">
+           <li>
+                <% searchResults.forEach(book => { %>
+                    <p>Title: <%= book.title %></p>
+            <div>
+                <img src= <%= book.image_url %>>
+                <% }) %>
+
+            </div>
+
+           </li>
        </ul>
+       </div>
+       <div>
+       </div>
+    </div>
+
        
 
    </body>
