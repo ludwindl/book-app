@@ -32,7 +32,7 @@ img {
     /*width: 80%;*/
   }
   
-  input[type="text"],
+  /*input[type="text"],
   input[type="password"],
   input[type="email"],
   textarea {
@@ -43,7 +43,7 @@ img {
     border: none;
     border-radius: 3px;
     transition: 350ms all;
-  }
+  }*/
   
   /*input[type="text"]:focus,
   input[type="password"]:focus,
@@ -53,10 +53,10 @@ img {
     color: #fff;
   }*/
   
-  #create-form {
+ /* #create-form {
     margin-top: 8vw;
     margin-bottom: 15vw;
-  }
+  }*/
   
   #create-form fieldset span {
     margin-right: 3vw;
@@ -103,9 +103,7 @@ img {
     border-radius: 3px;
   }
   
-  fieldset label {
-    font-size: 4vw;
-  }
+  
   
   h2 {
     font-size: 5vw;
@@ -114,13 +112,13 @@ img {
   }
   
   h3 {
-    font-size: 4vw;
+    
     color: #444;
     text-decoration: underline;
   }
   
   h4 {
-    font-size: 4vw;
+    
     padding: 5vw 2vw;
     color: #ccc;
     background: #444;

@@ -13,6 +13,7 @@ app.set('view engine', 'ejs');
 app.get('/', (request, response) => {
   response.render('pages/index');
 })
+app.get('/', bookSearch);
 
 //const client = new pg.Client(process.env.DATA_BASE_URL);
 //client.connect();
@@ -30,6 +31,9 @@ function Book(info) {
 }
 
 
+function bookSearch(request, response) {
+  response.render('pages/searches/new');
+}
 
 
 app.post('/search', createSearch);

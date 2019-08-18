@@ -15,11 +15,12 @@
        <div class="first">Search Results </div>
        
        <ul class="showlist">
-           <li>
+           
                 <% searchResults.forEach(book => { %>
-                    <p>Title: <%= book.title %></p>
+                    <h4>Title: <%= book.title %></h4>
             <div>
                 <img src= <%= book.image_url %>>
+                <p><%=book.description %></p>
                 <% }) %>
 
             </div>
