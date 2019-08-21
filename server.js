@@ -15,9 +15,9 @@ app.get('/', (request, response) => {
 })
 app.get('/', bookSearch);
 
-//const client = new pg.Client(process.env.DATA_BASE_URL);
-//client.connect();
-//client.on('error', err => console.error(err));
+const client = new pg.Client(process.env.DATA_BASE_URL);
+client.connect();
+client.on('error', err => console.error(err));
 
 function Book(info) {
   let httpRegex = /^(http:\/\/)/g;
