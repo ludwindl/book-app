@@ -1,33 +1,59 @@
 'use strict';
 
-const express =require('express');
+// Application Dependencies
+const express = require('express');
 const app = express();
 const superagent = require('superagent');
 const pg = require('pg');
 const PORT = process.env.PORT || 3000;
 
+// Environment Variables
+require('dotenv').config();
+
+//Express middleware
+//Utilize expressJS functionality to parse the body of the request
 app.use(express.urlencoded({extended:true}))
 app.use('/public', express.static('public'));
+
+// Set the view engine for server-side templating
 app.set('view engine', 'ejs');
 
-app.get('/', (request, response) => {
-  response.render('pages/index');
-})
-app.get('/', bookSearch);
+//Database Setup
+const client = new pg.Client(process.env.DATABASE_URL);
+client.connect();
+client.on('error', err => console.error(err));
 
-//const client = new pg.Client(process.env.DATA_BASE_URL);
-//client.connect();
-//client.on('error', err => console.error(err));
+// Create a new search to the Google Books API
 
-function Book(info) {
+
+// app.get('/', (request, response) => {
+//   response.render('pages/index');
+// })
+// app.get('/', bookSearch);
+
+  
+// API routes
+app.get('/', getBooks);
+app.post('/searches', createSearch);
+app.get('/searches/new', bookSearch);
+app.post('/books', addBook);
+app.get('/books/:book_id', getBook);
+
+
+
+
+
+
+
+function Book(info){
   let httpRegex = /^(http:\/\/)/g;
   let placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
   this.title = info.title ? info.title : 'No title available';
-  this.author = info.author ? info.author[0] : 'No author available';
-  this.isbn = info.industryIdentifiers ? `ISBN _13 ${info.industryIdentifiers[0].identifier}`: 'NO ISBN available';
-  this.image_url = info.imageLinks ? info.imageLinks.smallThumbnail.replace(httpRegex, 'https://') : placeholderImage;
-  this.id = info.industryIdentifiers ? `${info.industryIdentifiers[0].identifier}` : '';
+  this.author = info.authors ? info.authors : 'No author available';
+  this.isbn = info.industryIdentifiers ? `ISBN ${info.industryIdentifiers[0].identifier}` : 'No ISBN available';
+  this.image = info.imageLinks ? info.imageLinks.smallThumbnail.replace(httpRegex, 'https://') : placeholderImage;
   this.description = info.description ? info.description : 'No description available';
+  this.id = info.industryIdentifiers ? `${info.industryIdentifiers[0].identifier}` : '';
 }
 
 
@@ -36,7 +62,24 @@ function bookSearch(request, response) {
 }
 
 
-app.post('/search', createSearch);
+// function showForm(request, response) {
+//   response.render('pages/books/show')
+// }
+function getBookshelves(){
+  let SQL = 'SELECT DISTINCT bookshelf FROM books ORDER BY bookshelf;';
+  return client.query(SQL);
+}
+function getBook (request, response){
+  getBookshelves()
+    .then(shelves => {
+      let SQL = `SELECT * FROM books WHERE id=${request.params.id};`;
+      client.query(SQL)
+        .then(result => response.render('pages/books/show', {
+          book: result.rows[0],
+          bookshelves: shelves.rows}))
+        .catch(error => handleError(error, response));
+    })
+}
 
 function createSearch (request, response){
   let url = 'https://www.googleapis.com/books/v1/volumes?q=';
@@ -52,11 +95,43 @@ function createSearch (request, response){
 }
 
 
-app.listen(PORT, () => console.log(`Listening on ${PORT}` ));
+function getBooks(request, response) {
+  let SQL = 'SELECT * FROM books';
+  return client.query(SQL)
+    .then(res => {
+      console.log(res.rows);
+      if (res.rowCount > 0) {
+        console.log('res:', res.rows);
+        response.render('pages/index', {books: res.rows});
+      }
+    })
+    .catch(error => handleError(error, response));
 
+}
+
+function addBook(request, response) {
+  console.log('🤨', request.body);
+
+  let { title, author, isbn, image, description, bookshelf} = request.body;
+  console.log('This is title: ', title);
+
+  let SQL = 'INSERT INTO books (title, author, isbn, image, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6);';
+  let values = [title, author, isbn, image, description, bookshelf];
+
+  return client.query(SQL, values)
+    .then(result => {
+      console.log(result);
+      response.redirect('/')
+    })
+    .catch(error => handleError(error, response));
+}
 
 function handleError (error, response){
   console.error(error);
   response.status(500).send('ERROR');
 }
 
+
+app.listen(PORT, () => console.log(`Listening on ${PORT}` ));
+// Catch-all
+app.get('*', (request, response) => response.status(404).send('This page does not exist!'));

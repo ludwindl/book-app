@@ -1,38 +1,32 @@
-    
 <!DOCTYPE html>
-<html lang="en">
-   <body>
-       <head>
-            <link rel="stylesheet" href="../../public/styles/reset.css">
-            <link href="../../public/styles/base.css" rel="stylesheet" type="text/css">
-            <link href="../../public/styles/layout.css" rel="stylesheet" type="text/css">
-            <link href="../../public/styles/modules.css" rel="stylesheet" type="text/css">
-           <title>Show Books</title>
-        
-       </head>
-       <div class="page">
-       <nav class="nav">Best Books!</nav>
-       <div class="first">Search Results </div>
-       
-       <ul class="showlist">
-           
-                <% searchResults.forEach(book => { %>
-                    <h4>Title: <%= book.title %></h4>
-            <div>
-                <img src= <%= book.image_url %>>
-                <p><%=book.description %></p>
-                <% }) %>
+<html>
+    <head>
+        <%- include('../../layout/head') %>
+        <link rel="stylesheet" href="/public/styles/base.css">
+    </head>
+    <body>
+        <%- include('../../layout/header') %>
+        <main>
+            <h3>Results</h3>
+            <ul>
+                <% results.forEach(book => { %>
+                    <li data-book-id="<% book.isbn %>">
+                        <%- include('../books/detail', {book: book}) %>
+                        <button>Select Book</button>
+                        <form class="hide-me" action="/views/pages/books/" method="post">
+                        <input type="text" name="title" value="<%=book.title%>" required>
+                        <input type="text" name="author" value="<%=book.author %>" required>
+                        <input type="text" name="isbn" value="<%= book.isbn %>" >
+                        <input type="text" name="image" value="<%= book.image %>">
+                        <textarea name="Description" value="<%=book.description%>" cols="30" rows="5"><%= book.description%></textarea>
+                        <p>Enter a bookshelf name</p>
+                        <input type="text" name="bookshelf" required>
+                        <button id="show-me" type="submit">add</button>
+                    </form>
 
-            </div>
-
-           </li>
-       </ul>
-       </div>
-       <div>
-       </div>
-    </div>
-
-       
-
-   </body>
+                    </li>
+                <%})%>
+            </ul>
+        </main>
+    </body>
 </html>

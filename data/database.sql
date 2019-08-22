@@ -7,7 +7,8 @@ CREATE TABLE books (
   isbn  TEXT,
   image TEXT,
   description TEXT,
+  bookshelf TEXT
 );
 
-INSERT INTO books (title, author, isbn, image, description, category) 
-VALUES('Harry Potter', 'J.K Rowling', '9803890430095' ,'https://i.imgur.com/J5LVHEL.jpg','Fun and suspensful book');
+INSERT INTO books (title, author, isbn, image, description, bookshelf) 
+VALUES('Harry Potter', 'J.K Rowling', '9803890430095' ,'https://i.imgur.com/J5LVHEL.jpg','bookshelf');

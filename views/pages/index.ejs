@@ -1,30 +1,22 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="../../public/styles/reset.css">
-        <link href="../../public/styles/base.css" rel="stylesheet" type="text/css">
-        <link href="../../public/styles/layout.css" rel="stylesheet" type="text/css">
-        <link href="../../public/styles/modules.css" rel="stylesheet" type="text/css">
-        
-
-        <title>Search your favorite books!</title>
-    </head>
+        <head>
+            <%- include('../layout/head') %>
+        </head>
     <body>
-        <div class="page">
-        <nav class="nav">Best Books!</nav>
-        <div class="first">Search by title or author</div>
-        <form action="search" method="post">
-          <input type="text" placeholder="Enter title or author" name="search" required>
-          <div class="label">  
-          <label>Author
-                <input type="radio" name="search" value="author">
-            </label>
-            </div>
-            <label>Title
-                <input type="radio" name="search" value="title">
-            </label>
-            <button>Search the book</button>
-        </form>
-    </div>
+       <%- include('../layout/header') %>
+       <main>
+           <h4>Saved Books</h4>
+           <p><%= books.length %> books in the collection</p>
+           <ul>
+               <% books.forEach(book => { %>
+                <li class="book-items" data-book-id="<%= book.id %>">
+                    <%- include('books/detail', {book:book}) %>
+                    <p class="detail-button"><a href="/books/<%=book.id %>"></a> </p>
+                </li>
+               <%})%>
+           </ul>
+       </main>
+       <%- include('../layout/footer') %>
     </body>
 </html>

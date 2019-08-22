@@ -1,0 +1,17 @@
+<mai>
+    <h2>Search a Book</h2>
+    <fieldset>
+        <form action = "/searches" method="post">
+            <input type="text" name = "search" placeholder="Enter title/author" required>
+            <label for = "title">
+                <span>Title</span>
+                <input type="radio" name="search" value="title" required>
+            </label>
+            <label for="author">
+                <span>Author</span>
+                <input type="radio" name="search" value="author" required>
+            </label>
+            <button type="submit">Find book</button>
+        </form>
+    </fieldset>
+</mai>

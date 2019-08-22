@@ -1,0 +1,20 @@
+<section class="detailsection">
+    <img src = "<%book.image_url%>">
+    <h3>
+        <%= book.title %><% if (book.subtitle) {%>: <%= book.subtitle %> <%}%>
+    </h3>
+    <span>
+        <%= book.author %>
+    </span>
+    <p class="description">
+        <%=book.description %>
+    </p>
+    <p class="isbn">
+        <%=book.isbn%>
+        <% if (book.bookshelf){%>
+        Bookshelf:
+    <%= book.bookshelf%>
+<%}%>
+
+    </p>
+</section>
