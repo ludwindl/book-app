@@ -1,11 +1,14 @@
 'use strict';
 
 // Application Dependencies
-const express =require('express');
+const express = require('express');
 const app = express();
 const superagent = require('superagent');
 const pg = require('pg');
 const PORT = process.env.PORT || 3000;
+
+// Environment Variables
+require('dotenv').config();
 
 //Express middleware
 //Utilize expressJS functionality to parse the body of the request
@@ -20,34 +23,37 @@ const client = new pg.Client(process.env.DATABASE_URL);
 client.connect();
 client.on('error', err => console.error(err));
 
+// Create a new search to the Google Books API
 
 
 // app.get('/', (request, response) => {
 //   response.render('pages/index');
 // })
-
-
-app.get('/searches/new', bookSearch);
-
-
-// Create a new search to the Google Books API
-app.post('/searches', createSearch);
-
-
 // app.get('/', bookSearch);
-app.get('/books/:book_id', getOneBook);
-app.get('/add', showForm);
+
+  
+// API routes
+app.get('/', getBooks);
+app.post('/searches', createSearch);
+app.get('/searches/new', bookSearch);
+app.post('/books', addBook);
+app.get('/books/:book_id', getBook);
 
 
-function Book(info) {
+
+
+
+
+
+function Book(info){
   let httpRegex = /^(http:\/\/)/g;
   let placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
   this.title = info.title ? info.title : 'No title available';
-  this.author = info.author ? info.author[0] : 'No author available';
-  this.isbn = info.industryIdentifiers ? `ISBN _13 ${info.industryIdentifiers[0].identifier}`: 'NO ISBN available';
-  this.image_url = info.imageLinks ? info.imageLinks.smallThumbnail.replace(httpRegex, 'https://') : placeholderImage;
-  this.id = info.industryIdentifiers ? `${info.industryIdentifiers[0].identifier}` : '';
+  this.author = info.authors ? info.authors : 'No author available';
+  this.isbn = info.industryIdentifiers ? `ISBN ${info.industryIdentifiers[0].identifier}` : 'No ISBN available';
+  this.image = info.imageLinks ? info.imageLinks.smallThumbnail.replace(httpRegex, 'https://') : placeholderImage;
   this.description = info.description ? info.description : 'No description available';
+  this.id = info.industryIdentifiers ? `${info.industryIdentifiers[0].identifier}` : '';
 }
 
 
@@ -56,22 +62,23 @@ function bookSearch(request, response) {
 }
 
 
-function showForm(request, response) {
-  response.render('pages/books/show')
+// function showForm(request, response) {
+//   response.render('pages/books/show')
+// }
+function getBookshelves(){
+  let SQL = 'SELECT DISTINCT bookshelf FROM books ORDER BY bookshelf;';
+  return client.query(SQL);
 }
-
-
-function getOneBook(request, response) {
-  console.log('BOOK ID = ', request.params.book_id);
-
-  let SQL = 'SELECT * FROM books WHERE id=$1;';
-  let values = [request.params.book_id];
-
-  return client.query(SQL, values)
-    .then(result => {
-      return response.render('pages/books/show', { book: result.rows[0] });
+function getBook (request, response){
+  getBookshelves()
+    .then(shelves => {
+      let SQL = `SELECT * FROM books WHERE id=${request.params.id};`;
+      client.query(SQL)
+        .then(result => response.render('pages/books/show', {
+          book: result.rows[0],
+          bookshelves: shelves.rows}))
+        .catch(error => handleError(error, response));
     })
-    .catch(error => handleError(error, response));
 }
 
 function createSearch (request, response){
@@ -87,7 +94,6 @@ function createSearch (request, response){
     .catch(error => handleError(error, response));
 }
 
-app.get('/', getBooks);
 
 function getBooks(request, response) {
   let SQL = 'SELECT * FROM books';
@@ -103,19 +109,22 @@ function getBooks(request, response) {
 
 }
 
-// app.get('/', getTasks);
+function addBook(request, response) {
+  console.log('🤨', request.body);
 
-// function getTasks(request, response) {
-//   let SQL = 'SELECT * FROM tasks';
-//   return client.query(SQL)
-//     .then(res => {
-//       if (res.rowCount > 0) {
-//         // console.log('res:', res.rows);
-//         response.render('index', { activeTodos: res.rows });
-//       }
-//     })
-// }
+  let { title, author, isbn, image, description, bookshelf} = request.body;
+  console.log('This is title: ', title);
 
+  let SQL = 'INSERT INTO books (title, author, isbn, image, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6);';
+  let values = [title, author, isbn, image, description, bookshelf];
+
+  return client.query(SQL, values)
+    .then(result => {
+      console.log(result);
+      response.redirect('/')
+    })
+    .catch(error => handleError(error, response));
+}
 
 function handleError (error, response){
   console.error(error);

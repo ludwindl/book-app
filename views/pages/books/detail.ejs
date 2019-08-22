@@ -1,0 +1,14 @@
+<ul id="book-list">
+  <li class="book-item" data-id="<%= book.id %>">
+    <h4>Title: <%= book.title %></h4>
+    <p>Author: <%= book.author %></p>
+    <p>ISBN: <%= book.isbn %></p>          
+    <p>Image: <img src="<%= book.image %>"></p>
+    <p>Desciption: <%= book.description %></p>
+    <p>Bookshelf: <%= book.category %></p>
+  </li>
+</ul>
+</section>
+<section class="book-view container">
+<%- include('../layouts/form', {formAction: 'update', book:book}) %>
+</section>
