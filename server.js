@@ -26,7 +26,7 @@ client.on('error', err => console.error(err));
 //   response.render('pages/index');
 // })
 
-app.get('/', getBooks);
+
 app.get('/searches/new', bookSearch);
 
 
@@ -69,7 +69,7 @@ function getOneBook(request, response) {
 
   return client.query(SQL, values)
     .then(result => {
-      return response.render('pages/detail', { book: result.rows[0] });
+      return response.render('pages/books/show', { book: result.rows[0] });
     })
     .catch(error => handleError(error, response));
 }
@@ -87,9 +87,10 @@ function createSearch (request, response){
     .catch(error => handleError(error, response));
 }
 
+app.get('/', getBooks);
+
 function getBooks(request, response) {
   let SQL = 'SELECT * FROM books';
-
   return client.query(SQL)
     .then(res => {
       console.log(res.rows);
@@ -102,6 +103,7 @@ function getBooks(request, response) {
 
 }
 
+// app.get('/', getTasks);
 
 // function getTasks(request, response) {
 //   let SQL = 'SELECT * FROM tasks';
