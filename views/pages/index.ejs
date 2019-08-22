@@ -1,30 +1,22 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="../../public/styles/reset.css">
-        <link href="../../public/styles/base.css" rel="stylesheet" type="text/css">
-        <link href="../../public/styles/layout.css" rel="stylesheet" type="text/css">
-        <link href="../../public/styles/modules.css" rel="stylesheet" type="text/css">
-        
-
-        <title>Search your favorite books!</title>
-    </head>
-    <body>
-        <div class="page">
-        <nav class="nav">Best Books!</nav>
-        <div class="first">Search by title or author</div>
-        <form action="search" method="post">
-          <input type="text" placeholder="Enter title or author" name="search" required>
-          <div class="label">  
-          <label>Author
-                <input type="radio" name="search" value="author">
-            </label>
-            </div>
-            <label>Title
-                <input type="radio" name="search" value="title">
-            </label>
-            <button>Search the book</button>
-        </form>
-    </div>
-    </body>
+<html lang="en">
+<head>
+  <%- include('../layout/head') %>
+</head>
+<body>
+  <%- include('../layout/header') %>
+    <h3>Saved Books</h3>
+    <p>Number of books: <%= books.length %> </p>
+    <ul>
+        <% books.forEach(book => {%>
+        <div class="books">
+          <img src="<%= book.image_url %>" alt="">
+          <li class="title"><%= book.title %></li>
+          <li class="author"><%= book.author %></li>
+          <div id="button"><button type="submit"><a href="/books/<%= book.id %>">View Details</a></button></div>
+        </div>
+        <% })%>
+      </ul> 
+  <%- include('../layout/footer') %>
+</body>
 </html>
