@@ -2,10 +2,10 @@ DROP TABLE IF EXISTS books;
 
 CREATE TABLE books (
   id SERIAL PRIMARY KEY,
-  title TEXT,
-  author  TEXT,
-  isbn  TEXT,
-  image TEXT,
+  title VARCHAR(255),
+  author VARCHAR(50),
+  isbn  VARCHAR(50),
+  image VARCHAR(255),
   description TEXT,
   bookshelf TEXT
 );

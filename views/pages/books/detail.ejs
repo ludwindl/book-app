@@ -1,20 +1,32 @@
-<section class="detailsection">
-    <img src = "<%book.image_url%>">
-    <h3>
-        <%= book.title %><% if (book.subtitle) {%>: <%= book.subtitle %> <%}%>
-    </h3>
-    <span>
-        <%= book.author %>
-    </span>
-    <p class="description">
-        <%=book.description %>
-    </p>
-    <p class="isbn">
-        <%=book.isbn%>
-        <% if (book.bookshelf){%>
-        Bookshelf:
-    <%= book.bookshelf%>
-<%}%>
 
-    </p>
-</section>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <%- include('../layouts/head') %>
+</head>
+
+<body>
+  <header>
+    <%- include('../layouts/header') %>
+  </header>
+  <main>
+    <section class="book container">
+      <ul id="book-list">
+        <li class="book-item" data-id="<%= book.id %>">
+          <h4>Title: <%= book.title %></h4>
+          <p>Author: <%= book.author %></p>
+          <p>ISBN: <%= book.isbn %></p>          
+          <p>Image: <img src="<%= book.image %>"></p>
+          <p>Desciption: <%= book.description %></p>
+          <p>Bookshelf: <%= book.category %></p>
+        </li>
+      </ul>
+    </section>
+    <section class="book-view container">
+      <%- include('../layouts/form', {formAction: 'update', book:book}) %>
+    </section>
+  </main>
+</body>
+
+</html>

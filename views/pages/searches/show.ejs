@@ -1,32 +1,27 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <%- include('../../layout/head') %>
-        <link rel="stylesheet" href="/public/styles/base.css">
-    </head>
-    <body>
-        <%- include('../../layout/header') %>
-        <main>
-            <h3>Results</h3>
-            <ul>
-                <% results.forEach(book => { %>
-                    <li data-book-id="<% book.isbn %>">
-                        <%- include('../books/detail', {book: book}) %>
-                        <button>Select Book</button>
-                        <form class="hide-me" action="/views/pages/books/" method="post">
-                        <input type="text" name="title" value="<%=book.title%>" required>
-                        <input type="text" name="author" value="<%=book.author %>" required>
-                        <input type="text" name="isbn" value="<%= book.isbn %>" >
-                        <input type="text" name="image" value="<%= book.image %>">
-                        <textarea name="Description" value="<%=book.description%>" cols="30" rows="5"><%= book.description%></textarea>
-                        <p>Enter a bookshelf name</p>
-                        <input type="text" name="bookshelf" required>
-                        <button id="show-me" type="submit">add</button>
-                    </form>
 
-                    </li>
-                <%})%>
-            </ul>
-        </main>
-    </body>
+<html lang="en">
+<head>
+  <%- include('../../layout/head') %>
+</head>
+<body>
+  <%- include('../../layout/header') %>
+  <h1>Search Results</h1>
+  <ul class="search-results">
+    <%  searchResults.forEach(book => { %>
+    <div class="books" data-book-id="<%= book.isbn %>">
+      <img src="<%= book.image %>" alt="">
+      <li class="title"><%= book.title %></li>
+      <li class="author"><%= book.author %></li>
+      <li class="description"><%= book.description %></li>
+      <div class="select-button" type="submit">Select This Book</div>
+      <%- include('form', {book: book}) %>
+    </div>
+    <% })%>
+  </ul>
+
+  <%- include('../../layout/footer') %>
+</body>
+
+
 </html>

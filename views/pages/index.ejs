@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html>
-        <head>
-            <%- include('../layout/head') %>
-        </head>
-    <body>
-       <%- include('../layout/header') %>
-       <main>
-           <h4>Saved Books</h4>
-           <p><%= books.length %> books in the collection</p>
-           <ul>
-               <% books.forEach(book => { %>
-                <li class="book-items" data-book-id="<%= book.id %>">
-                    <%- include('books/detail', {book:book}) %>
-                    <p class="detail-button"><a href="/books/<%=book.id %>"></a> </p>
-                </li>
-               <%})%>
-           </ul>
-       </main>
-       <%- include('../layout/footer') %>
-    </body>
+<html lang="en">
+<head>
+  <%- include('../layout/head') %>
+</head>
+<body>
+  <%- include('../layout/header') %>
+    <h3>Saved Books</h3>
+    <p>Number of books: <%= books.length %> </p>
+    <ul id="book-list">
+      <% books.forEach(book => { %>
+      <li class="book-item" data-id="<%= book.id %>">
+        <h4>Book: <%= book.title %></h4>
+        <img src="<%= book.image %>">
+        <p>Book description: <%= book.description %></p>
+        <a href="/books/<%= book.id%>">View Details</a>
+      </li>
+      <% }) %>
+    </ul>
+  <%- include('../layout/footer') %>
+</body>
 </html>
