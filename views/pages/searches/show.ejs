@@ -1,38 +1,25 @@
-    
 <!DOCTYPE html>
 <html lang="en">
-   <body>
-       <head>
-            <link rel="stylesheet" href="../../public/styles/reset.css">
-            <link href="../../public/styles/base.css" rel="stylesheet" type="text/css">
-            <link href="../../public/styles/layout.css" rel="stylesheet" type="text/css">
-            <link href="../../public/styles/modules.css" rel="stylesheet" type="text/css">
-           <title>Show Books</title>
-        
-       </head>
-       <div class="page">
-       <nav class="nav">Best Books!</nav>
-       <div class="first">Search Results </div>
-       
-       <ul class="showlist">
-           
-                <% searchResults.forEach(book => { %>
-                    <h4>Title: <%= book.title %></h4>
-            <div>
-                <img src= <%= book.image_url %>>
-                <p><%=book.description %></p>
-                <% }) %>
-
-            </div>
-
-           </li>
-       </ul>
-       </div>
-       <div>
-       </div>
+<head>
+  <%- include('../../layout/head') %>
+</head>
+<body>
+  <%- include('../../layout/header') %>
+  <h1>Search Results</h1>
+  <ul class="search-results">
+    <%  searchResults.forEach(book => { %>
+    <div class="books" data-book-id="<%= book.isbn %>">
+      <img src="<%= book.image %>" alt="">
+      <li class="title"><%= book.title %></li>
+      <li class="author"><%= book.author %></li>
+      <li class="description"><%= book.description %></li>
+      <div class="select-button" type="submit">Select This Book</div>
+      <%- include('form', {book: book}) %>
     </div>
+    <% })%>
+  </ul>
 
-       
+  <%- include('../../layout/footer') %>
+</body>
 
-   </body>
 </html>
