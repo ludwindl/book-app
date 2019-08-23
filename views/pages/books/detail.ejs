@@ -1,31 +1,18 @@
-<!DOCTYPE html>
-<html>
+<section>
+  <div class="books">
+    <img src="<%= book.image %>" alt="">
+    <li class="title"><%= book.title %></li>
+    <li class="author"><%= book.author %></li>
+    <li class="description"><%= book.description %></li>
+    <li class="isbn">ISBN: <%= book.isbn %></li>
+    <li class="bookshelf">Bookshelf: <%= book.bookshelf %></li>
+    <button class="select-button" type="submit">Select this book</button>
+    <%- include('edit', {book: book}) %>
 
-<head>
-  <%- include('../layouts/head') %>
-</head>
-
-<body>
-  <header>
-    <%- include('../layouts/header') %>
-  </header>
-  <main>
-    <section class="book container">
-      <ul id="book-list">
-        <li class="book-item" data-id="<%= book.id %>">
-          <h4>Title: <%= book.title %></h4>
-          <p>Author: <%= book.author %></p>
-          <p>ISBN: <%= book.isbn %></p>          
-          <p>Image: <img src="<%= book.image %>"></p>
-          <p>Desciption: <%= book.description %></p>
-          <p>Bookshelf: <%= book.category %></p>
-        </li>
-      </ul>
-    </section>
-    <section class="book-view container">
-      <%- include('../layouts/form', {formAction: 'update', book:book}) %>
-    </section>
-  </main>
-</body>
-
-</html>
+    <form class="delete-form" action="/books/:id" method="post"> 
+      <input type="hidden" name="_method" value="<%- 'delete' %>"/>
+      <input type="hidden" name="id" value="<%= book.id %>"/>
+      <button class="delete-button" type="submit">Delete Book</button>
+    </form>
+  </div>
+</section>

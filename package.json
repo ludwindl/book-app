@@ -24,6 +24,7 @@
     "ejs": "^2.6.2",
     "eslint": "^6.2.1",
     "express": "^4.17.1",
+    "method-override": "^3.0.0",
     "nodemon": "^1.19.1",
     "pg": "^7.12.1",
     "superagent": "^5.1.0"
