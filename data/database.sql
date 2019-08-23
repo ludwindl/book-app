@@ -7,7 +7,7 @@ CREATE TABLE books (
   isbn  VARCHAR(50),
   image_url VARCHAR(255),
   description TEXT,
-  bookshelf VARCHAR(255)
+  bookshelf TEXT
 );
 
 INSERT INTO books (title, author, isbn, image_url, description, bookshelf) 
