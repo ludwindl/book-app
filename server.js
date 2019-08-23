@@ -62,7 +62,7 @@ function Book(info){
   this.title = info.title ? info.title : 'No title available';
   this.author = info.authors ? info.authors : 'No author available';
   this.isbn = info.industryIdentifiers ? `ISBN ${info.industryIdentifiers[0].identifier}` : 'No ISBN available';
-  this.image = info.imageLinks ? info.imageLinks.smallThumbnail.replace(httpRegex, 'https://') : placeholderImage;
+  this.image_url = info.imageLinks ? info.imageLinks.smallThumbnail.replace(httpRegex, 'https://') : placeholderImage;
   this.description = info.description ? info.description : 'No description available';
   this.id = info.industryIdentifiers ? `${info.industryIdentifiers[0].identifier}` : '';
 }
@@ -123,11 +123,11 @@ function getBooks(request, response) {
 function addBook(request, response) {
   console.log('lol', request.body);
 
-  let { title, author, isbn, image, description, bookshelf} = request.body;
+  let { title, author, isbn, image_url, description, bookshelf} = request.body;
   console.log('This is title: ', title);
 
-  let SQL = 'INSERT INTO books (title, author, isbn, image, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6);';
-  let values = [title, author, isbn, image, description, bookshelf];
+  let SQL = 'INSERT INTO books (title, author, isbn, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6);';
+  let values = [title, author, isbn, image_url, description, bookshelf];
 
   return client.query(SQL, values)
     .then(result => {
@@ -139,9 +139,9 @@ function addBook(request, response) {
 
 
 function updateBook(request, response){
-  let {title, author, isbn, image, description, bookshelf, id} = request.body;
-  let SQL = `UPDATE books SET title=$1, author=$2, isbn=$3, image=$4, description=$5, bookshelf=$6 WHERE id=$7;`;
-  let values = [title, author, isbn, image, description, bookshelf, id];
+  let {title, author, isbn, image_url, description, bookshelf, id} = request.body;
+  let SQL = `UPDATE books SET title=$1, author=$2, isbn=$3, image_url=$4, description=$5, bookshelf=$6 WHERE id=$7;`;
+  let values = [title, author, isbn, image_url, description, bookshelf, id];
 
   client.query(SQL, values)
     .then(response.redirect(`/books/${id}`))

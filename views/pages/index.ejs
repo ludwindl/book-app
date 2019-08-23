@@ -10,7 +10,7 @@
     <ul>
         <% books.forEach(book => {%>
         <div class="books">
-          <img src="<%= book.image %>" alt="">
+          <img src="<%= book.image_url %>" alt="">
           <li class="title"><%= book.title %></li>
           <li class="author"><%= book.author %></li>
           <div id="button"><button type="submit"><a href="/books/<%= book.id %>">View Details</a></button></div>
