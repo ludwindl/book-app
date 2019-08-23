@@ -6,6 +6,7 @@ const app = express();
 const superagent = require('superagent');
 const pg = require('pg');
 const PORT = process.env.PORT || 3000;
+const methodOverride = require('method-override');
 
 // Environment Variables
 require('dotenv').config();
@@ -14,6 +15,16 @@ require('dotenv').config();
 //Utilize expressJS functionality to parse the body of the request
 app.use(express.urlencoded({extended:true}))
 app.use('/public', express.static('public'));
+
+// Middleware to handle PUT and DELETE - TODO: Understand this!!
+app.use(methodOverride((request, response) => {
+  if (request.body && typeof request.body === 'object' && '_method' in request.body) {
+    // look in urlencoded POST bodies and delete it
+    let method = request.body._method;
+    delete request.body._method;
+    return method;
+  }
+}))
 
 // Set the view engine for server-side templating
 app.set('view engine', 'ejs');
@@ -31,15 +42,15 @@ client.on('error', err => console.error(err));
 // })
 // app.get('/', bookSearch);
 
-  
+
 // API routes
 app.get('/', getBooks);
 app.post('/searches', createSearch);
 app.get('/searches/new', bookSearch);
 app.post('/books', addBook);
-app.get('/books/:book_id', getBook);
-
-
+app.get('/books/:id', getBook);
+app.put('/update/:id', updateBook);
+app.delete('/books/:id', deleteBook);
 
 
 
@@ -110,7 +121,7 @@ function getBooks(request, response) {
 }
 
 function addBook(request, response) {
-  console.log('🤨', request.body);
+  console.log('lol', request.body);
 
   let { title, author, isbn, image, description, bookshelf} = request.body;
   console.log('This is title: ', title);
@@ -125,6 +136,27 @@ function addBook(request, response) {
     })
     .catch(error => handleError(error, response));
 }
+
+
+function updateBook(request, response){
+  let {title, author, isbn, image, description, bookshelf, id} = request.body;
+  let SQL = `UPDATE books SET title=$1, author=$2, isbn=$3, image=$4, description=$5, bookshelf=$6 WHERE id=$7;`;
+  let values = [title, author, isbn, image, description, bookshelf, id];
+
+  client.query(SQL, values)
+    .then(response.redirect(`/books/${id}`))
+    .catch(error => handleError(error, response));
+}
+
+function deleteBook(request, response){
+  const SQL = `DELETE FROM books WHERE id=${request.body.id}`;
+
+  client.query(SQL)
+    .then(response.redirect('/'))
+    .catch(error => handleError(error, response));
+}
+
+
 
 function handleError (error, response){
   console.error(error);
