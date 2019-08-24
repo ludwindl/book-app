@@ -1,13 +1,13 @@
 DROP TABLE IF EXISTS books;
 
 CREATE TABLE books (
-  id SERIAL PRIMARY KEY,
-  title VARCHAR(255),
-  author VARCHAR(50),
-  isbn  VARCHAR(50),
-  image VARCHAR(255),
-  description TEXT,
-  bookshelf TEXT
+    id SERIAL PRIMARY KEY, 
+    author TEXT,
+    title TEXT,
+    isbn TEXT,
+    image_url TEXT,
+    description TEXT,
+    bookshelf TEXT
 );
 
 INSERT INTO books (title, author, isbn, image, description, bookshelf) 
