@@ -114,6 +114,7 @@ function getBook (request, response){
           book: result.rows[0],
           bookshelves: shelves.rows}))
         .catch(error => handleError(error, response));
+
     })
 }
 
