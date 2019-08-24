@@ -1,31 +1,14 @@
-@media only screen and (max-width: 768px){
-  body {
-    width: 100%;
-    align-items: center;
-  }
-} 
+@media only screen and (max-width: 768px){    
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
 
 body{
+    width: 480px;
+    background-color: azure;
+    font-family: 'Nunito', sans-serif;
+    margin: 0 auto;
+    align-items: center;
+}
+}
+body{
   background-color: rgb(86, 86, 106);
-}
-.page {
-  background-color: rgba(128, 128, 128, 0.911);
-  height: 750px;
-}
-
-main {
-  flex: 1;
-  margin-top: 14vw;
-  
-}
-
-
-footer{
-  text-align: center;
-  font-family: 'Times New Roman', Times, serif;
-  font-weight: bolder;
-  font-size: 20px;
-  background-color: rgb(88, 84, 84);
-  padding: 5px;
-  margin-bottom: 5px;
 }

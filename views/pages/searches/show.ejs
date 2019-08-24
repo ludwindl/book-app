@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <%- include('../../layout/head') %>
@@ -10,7 +9,7 @@
   <ul class="search-results">
     <%  searchResults.forEach(book => { %>
     <div class="books" data-book-id="<%= book.isbn %>">
-      <img src="<%= book.image_url %>" alt="">
+      <img class = "image" src="<%= book.image_url %>" alt="">
       <li class="title"><%= book.title %></li>
       <li class="author"><%= book.author %></li>
       <li class="description"><%= book.description %></li>
@@ -22,6 +21,5 @@
 
   <%- include('../../layout/footer') %>
 </body>
-
 
 </html>
