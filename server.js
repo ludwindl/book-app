@@ -106,7 +106,7 @@ function createBook(request, response){
 }
 
 function getBook (request, response){
-  
+  getBookshelves()
     .then(shelves => {
       let SQL = `SELECT * FROM books WHERE id=${request.params.id};`;
       client.query(SQL)
@@ -136,7 +136,10 @@ function deleteBook(request, response){
     .catch(error => handleError(error, response));
 }
 
-
+function getBookshelves(){
+  let SQL = 'SELECT DISTINCT bookshelf FROM books ORDER BY bookshelf;';
+  return client.query(SQL);
+}
 
 function handleError (error, response){
   console.error(error);
