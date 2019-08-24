@@ -1,27 +1,104 @@
+header {
+    background-color: #c7c7c7;
+    border-radius: 10px;
+    padding: 5px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
 
-.nav {
-    background-color: rgb(24, 23, 22);
-    height: 60px;
-    color:white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+h1 {
+    font-size: 25px;
+    font-weight: bold;
+    padding: 10px;
+    padding-left: 15px;
+}
+  
+h3{
+    background-color:#c7d1d3;
+    color: black;
+    padding: 5px;
+    padding-left: 15px;
+    height: 30px;
+    width: 200px;
+    line-height: 30px;
+    font-size: 18px;
+    border-radius: 10px;
+}
+
+p {
+    background-color: #c7d1d3;
+    color: black;
+    padding: 5px;
+    padding-left: 15px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+    border-radius: 10px;
+    margin: 0 auto;
+    font-size: 0.9em;
+  }
+  
+h4{
+    font-size: 25px;
+    font-weight: 600;
+    padding: 10px;
+    padding-left: 25px; 
+    color: whitesmoke;
+} 
+
+main {
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+form {
+    box-shadow: 3px 3px 5px #5c5158;
+    border-radius: 10px;
+    background:  #c7d1d3;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    padding: 30px 0px 30px 0px;
+    margin: 0 auto;
+    color: black;
+    width: 300px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+
+section {
+    border-radius: 90px;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    padding: 30px 0px 30px 0px;
+    margin: 0 auto;
+    color: black;
+    width: 500px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    list-style-type: none; 
     
 }
-input {
-     width: 65%; 
+
+li#footer{
+    font-size: 15px;
+    line-height: 50px;
+    text-align: center;
 }
-.first {
-    background-color: rgb(99, 98, 98);
-    color: white;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.label {
-    background-color: #fff;
-    display: block;
-    margin: 10px 0;
-    position: relative;
-}
+
+footer {
+    background-color: #c7d1d3;
+    border-radius: 15px;
+    height: 75px;
+    list-style-type: none; 
+
+  }
+
+  ol, ul {
+    text-align: center;
+  }
