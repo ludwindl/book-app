@@ -6,7 +6,7 @@
     <li class="description"><%= book.description %></li>
     <li class="isbn">ISBN: <%= book.isbn %></li>
     <li class="bookshelf">Bookshelf: <%= book.bookshelf %></li>
-    <button class="select-button" type="submit">Select this book</button>
+    <button class="select-button">update</button>
     <%- include('edit', {book: book}) %>
 
     <form class="delete-form" action="/books/:id" method="post"> 

@@ -12,3 +12,7 @@ body{
 body{
   background-color: rgb(86, 86, 106);
 }
+
+.hide-form {
+  display: none;
+}

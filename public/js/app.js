@@ -1,3 +1,5 @@
-$('.select-button').on('click', function(){
-  $(this).next('form').removeClass();
+'use strict';
+
+$('.select-button').on('click', function() {
+  $(this).next().removeClass('hide-form');
 });
